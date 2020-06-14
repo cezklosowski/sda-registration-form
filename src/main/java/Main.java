@@ -9,6 +9,7 @@ public class Main {
         //   b. W klasie Student utwórz gettery i settery
         //   c. W klasie Main w metodzie main na samym początku utwórz tablicę typu Student mającą pojemność 20 elementów (tyle maksymalnie będzie liczyła grupa)
         //   d. W tym samym miejscu utwórz zmienną, która będzie przechowywała wartość liczbową o ostatniej zapełnionej pozycji
+        //                  - zamiast tablicy wykorzystałem listę
         //   e. Po wprowadzeniu wszystkich poprawnych danych utwórz obiekt klasy Student i ustaw za pomocą setterów poszczególne pola na właściwe wartości
         //   f. Dodaj element do tablicy na jej następnej niezapełnionej pozycji
         // 3. Dodaj metodę toString() do klasy Student
@@ -23,6 +24,7 @@ public class Main {
             System.out.println("Co chcesz zrobić?");
             System.out.println("1. Zapisać się na kurs");
             System.out.println("2. Wyświetlić listę uczestników");
+            System.out.println("3. Wyświetl listę opłaconych uczestników.");
             System.out.println("q. Zakończyć");
 
             option = scanner.nextLine();
@@ -120,11 +122,36 @@ public class Main {
                 studentList.add(new Student(nameAndSurname,pesel,phoneNumber,language,paid));
 
             } else if ("2".equals(option)) {
-                System.out.println("Oto wszyscy studenci:");
-                System.out.println();
-                //tutaj wypisz całą zawartość tablicy
+                if (studentList.size() == 0){
+                    System.out.println("Nie zapisano żadnego studenta.");
+                    System.out.println();
+                } else {
+                    System.out.println("Oto wszyscy studenci:");
+                    System.out.println();
+                    //tutaj wypisz całą zawartość tablicy
+                    for (Student student : studentList) {
+                        System.out.println(student);
+                    }
+                }
+            } else if ("3".equals(option)) {
+                int allStudentsThatPaid = 0;
                 for (Student student:studentList) {
-                    System.out.println(student);
+                    if (student.getPaid().equals("tak")) {
+                        allStudentsThatPaid++;
+                        break;
+                    }
+                }
+                if (allStudentsThatPaid == 0){
+                    System.out.println("Nie zapisano żanego studenta, który opłacił kurs.");
+                    System.out.println();
+                } else {
+                    System.out.println("Oto wszyscy studenci, którzy opołacili kurs:");
+                    System.out.println();
+                    for (Student student : studentList) {
+                        if (student.getPaid().equals("tak")) {
+                            System.out.println(student);
+                        }
+                    }
                 }
             }
 
